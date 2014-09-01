@@ -1,11 +1,11 @@
-package contentprovider;
+package contentproviders;
 
 import com.google.common.collect.Lists;
 import networker.Networker;
 import org.apache.http.client.utils.URIUtils;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
-import parser.SiriXmlParser;
+import parsers.SiriXmlParser;
 import uk.org.siri.siri.Siri;
 import uk.org.siri.siri.StopMonitoringDeliveryStructure;
 

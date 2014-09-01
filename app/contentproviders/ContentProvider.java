@@ -1,4 +1,4 @@
-package contentprovider;
+package contentproviders;
 
 /**
  * 1. Sync/Async provide methods
