@@ -1,4 +1,4 @@
-package parser;
+package parsers;
 
 import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSSerializer;
@@ -30,7 +30,7 @@ public class SiriXmlParser extends XmlParser<Siri> {
         return xml.replaceAll(" xmlns(?:.*?)?=\".*?\"", "");
     }
 
-    public static SiriDistanceExtension getExtensionWrapper(MonitoredVehicleJourneyStructure j) throws JAXBException {
+    public static SiriDistanceExtension getDistanceExtension(MonitoredVehicleJourneyStructure j) throws JAXBException {
         Element e = (Element) j.getMonitoredCall().getExtensions().getAny();
         DOMImplementationLS impl = (DOMImplementationLS) e.getOwnerDocument().getImplementation();
 
