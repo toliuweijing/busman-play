@@ -13,6 +13,9 @@ public abstract class SelfRetryTask {
 
   public static final FiniteDuration DURATION_NONE = null;
 
+  /**
+   * Schedule to run task asynchronously. Passing DURATION_NONE has no effects.
+   */
   final public void schedule(FiniteDuration duration) {
 
     if (duration == DURATION_NONE) {
