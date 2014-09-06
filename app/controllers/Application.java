@@ -1,14 +1,8 @@
 package controllers;
 
-import contentprovider.StopMonitoringProvider;
-import parser.SiriDistanceExtension;
-import parser.SiriFetcher;
-import parser.SiriXmlParser;
+import tasks.StopMonitorTask;
 import play.mvc.Controller;
 import play.mvc.Result;
-import uk.org.siri.siri.MonitoredStopVisitStructure;
-import uk.org.siri.siri.Siri;
-import uk.org.siri.siri.StopMonitoringDeliveryStructure;
 
 import javax.xml.bind.JAXBException;
 import java.net.URISyntaxException;
@@ -17,28 +11,33 @@ import static contentprovider.StopMonitoringProvider.*;
 
 public class Application extends Controller {
 
-    public static Result index() throws JAXBException, URISyntaxException {
-        return doSomething();
-    }
+  public static Result index() throws JAXBException, URISyntaxException {
+    return doSomething();
+  }
 
-    public static Result doSomething() {
-        StopMonitoringProvider provider = new StopMonitoringProvider();
-        StopMonitoringProvider.Request req = provider.new Request(StopMonitoringProvider.SAMPLE_STOP_CODE);
+  public static Result doSomething() {
+    StopMonitorTask.Params params =
+        new StopMonitorTask.Params(SAMPLE_STOP_CODE, SAMPLE_LINE_REF, 3);
+    new StopMonitorTask(params).schedule(StopMonitorTask.DURATION_NOW);
+    return ok();
+  }
 
-        StopMonitoringDeliveryStructure s = provider.get(req);
-        for (MonitoredStopVisitStructure stopVisitStructure : s.getMonitoredStopVisit()) {
-            SiriDistanceExtension wrapper = null;
-            try {
-                wrapper = SiriXmlParser.getExtensionWrapper(
-                        stopVisitStructure.getMonitoredVehicleJourney());
-            } catch (JAXBException e) {
-                e.printStackTrace();
-            }
-            System.out.print(wrapper.getPresentableDistance());
-            return ok(wrapper.getPresentableDistance());
-        }
-        return ok();
-    }
+  /**
+   * http://localhost:9000/stopmonitor/300067/MTA%20NYCT_B9/3
+   * @param stopCode
+   * @param lineRef
+   * @param stopsAway
+   * @return
+   */
+  public static Result stopMonitor(
+      int stopCode,
+      String lineRef,
+      int stopsAway) {
+    StopMonitorTask.Params params =
+        new StopMonitorTask.Params(stopCode, lineRef, stopsAway);
+    new StopMonitorTask(params).schedule(StopMonitorTask.DURATION_NOW);
+    return ok();
+  }
 }
 
 
