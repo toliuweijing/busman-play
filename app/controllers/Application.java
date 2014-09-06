@@ -7,7 +7,8 @@ import play.mvc.Result;
 import javax.xml.bind.JAXBException;
 import java.net.URISyntaxException;
 
-import static contentprovider.StopMonitoringProvider.*;
+import static contentproviders.StopMonitoringProvider.SAMPLE_STOP_CODE;
+import static contentproviders.StopMonitoringProvider.SAMPLE_LINE_REF;
 
 public class Application extends Controller {
 
@@ -38,6 +39,7 @@ public class Application extends Controller {
     new StopMonitorTask(params).schedule(StopMonitorTask.DURATION_NOW);
     return ok();
   }
+
 }
 
 

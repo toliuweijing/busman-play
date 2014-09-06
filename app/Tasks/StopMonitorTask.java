@@ -1,8 +1,8 @@
 package tasks;
 
-import contentprovider.StopMonitoringProvider;
-import parser.SiriDistanceExtension;
-import parser.SiriXmlParser;
+import contentproviders.StopMonitoringProvider;
+import parsers.SiriDistanceExtension;
+import parsers.SiriXmlParser;
 import scala.concurrent.duration.Duration;
 import scala.concurrent.duration.FiniteDuration;
 import uk.org.siri.siri.MonitoredStopVisitStructure;

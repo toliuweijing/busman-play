@@ -1,4 +1,4 @@
-package parser;
+package parsers;
 
 import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSSerializer;
@@ -45,16 +45,4 @@ public class SiriXmlParser extends XmlParser<Siri> {
     return (SiriDistanceExtension) unmarshaller.unmarshal(new StringReader(content));
   }
 
-  public static String deserialize(SiriDistanceExtension distanceExtension) {
-    StringWriter writer = new StringWriter();
-    Marshaller marshaller = null;
-    try {
-      marshaller = JAXBContext.newInstance(SiriDistanceExtension.class).createMarshaller();
-      marshaller.marshal(distanceExtension, writer);
-      return writer.getBuffer().toString();
-    } catch (JAXBException e) {
-      e.printStackTrace();
-    }
-    return null;
-  }
 }

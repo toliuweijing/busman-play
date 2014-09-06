@@ -1,4 +1,4 @@
-package parser;
+package parsers;
 
 import com.google.common.collect.Lists;
 import networker.Networker;
