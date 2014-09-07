@@ -26,7 +26,17 @@ public class StopMonitorTask extends SelfRetryTask {
     }
   }
 
+  public static interface Listener {
+    public void onFinish();
+  }
+
+  private Listener mListener;
+
   private Params mParams;
+
+  public void setListener(Listener l) {
+    mListener = l;
+  }
 
   public StopMonitorTask(Params params) {
     mParams = params;
@@ -43,6 +53,10 @@ public class StopMonitorTask extends SelfRetryTask {
 
     FiniteDuration duration = isArriving(stopMonitoringDeliveryStructure, mParams) ?
         DURATION_NONE : Duration.create(30, TimeUnit.SECONDS);
+
+    if (duration == DURATION_NONE && mListener != null) {
+      mListener.onFinish();
+    }
 
     return duration;
   }

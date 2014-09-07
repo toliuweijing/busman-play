@@ -1,5 +1,6 @@
 package controllers;
 
+import notification.NotificationCenter;
 import tasks.StopMonitorTask;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -13,7 +14,7 @@ import static contentproviders.StopMonitoringProvider.SAMPLE_LINE_REF;
 public class Application extends Controller {
 
   public static Result index() throws JAXBException, URISyntaxException {
-    return doSomething();
+    return ok();
   }
 
   public static Result doSomething() {
@@ -33,10 +34,24 @@ public class Application extends Controller {
   public static Result stopMonitor(
       int stopCode,
       String lineRef,
-      int stopsAway) {
+      int stopsAway,
+      final String deviceToken) {
+
     StopMonitorTask.Params params =
         new StopMonitorTask.Params(stopCode, lineRef, stopsAway);
-    new StopMonitorTask(params).schedule(StopMonitorTask.DURATION_NOW);
+
+    StopMonitorTask task = new StopMonitorTask(params);
+
+    task.setListener(
+        new StopMonitorTask.Listener() {
+          @Override
+          public void onFinish() {
+            NotificationCenter.send("bus's approaching", deviceToken);
+          }
+        }
+    );
+    task.schedule(StopMonitorTask.DURATION_NOW);
+
     return ok();
   }
 
