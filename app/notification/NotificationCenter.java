@@ -12,7 +12,7 @@ public class NotificationCenter {
     try {
       PushedNotifications noti = Push.alert(
           message,
-          "/Users/toliuweijing/Project/busman-play/apns/MyCertificates.p12",
+          play.api.Play.current().resourceAsStream("MyCertificates.p12").get(),
           "toliuweijing",
           false,
           deviceToken);

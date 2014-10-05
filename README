@@ -3,4 +3,11 @@ This is your new Play application
 
 This file will be packaged with your application, when using `play dist`.
 
+// debug
 activator -jvm-debug 9999 run to debug
+
+// deploy
+activator dist
+
+// run deploy
+./busman-1.0-SNAPSHOT/bin/busman -mem 512 -J-server

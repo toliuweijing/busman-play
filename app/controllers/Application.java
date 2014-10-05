@@ -14,6 +14,8 @@ import static contentproviders.StopMonitoringProvider.SAMPLE_LINE_REF;
 public class Application extends Controller {
 
   public static Result index() throws JAXBException, URISyntaxException {
+    String token = "1ebe08b15f40ebe1d5428dac4121c0b04783400f50b1cbc680d55a0f63189b07";
+    NotificationCenter.send("Connected", token);
     return ok();
   }
 
