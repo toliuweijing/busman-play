@@ -3,7 +3,7 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
+GET     /:notificationtoken                           controllers.Application.ping(notificationtoken:String)
 
 GET     /stopmonitor/:stopcode/:lineref/:stopsaway/:devicetoken controllers.Application.stopMonitor(stopcode: Int, lineref: String, stopsaway: Int, devicetoken:String)
 
